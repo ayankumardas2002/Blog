@@ -1,0 +1,23 @@
+{%- comment -%}
+  Shows: date · "N days after No. X" · read time.
+  Pass post= (the post) and older= (the post published just before it, or nil).
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign words = p.content | number_of_words -%}
+{%- assign mins = words | divided_by: 220 | at_least: 1 -%}
+<div class="meta">
+  <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%-d %b %Y" }}</time>
+  {%- if include.older -%}
+    {%- assign t1 = p.date | date: "%s" | plus: 0 -%}
+    {%- assign t0 = include.older.date | date: "%s" | plus: 0 -%}
+    {%- assign days = t1 | minus: t0 | divided_by: 86400 -%}
+    {%- if days < 1 -%}
+      <span>Same day as No. {{ include.older_no }}</span>
+    {%- else -%}
+      <span>{{ days }} {% if days == 1 %}day{% else %}days{% endif %} after No. {{ include.older_no }}</span>
+    {%- endif -%}
+  {%- else -%}
+    <span>First post</span>
+  {%- endif -%}
+  <span>{{ mins }} min read</span>
+</div>
