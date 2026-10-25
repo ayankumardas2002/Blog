@@ -1,0 +1,36 @@
+<aside class="sidebar">
+  <form class="search" action="{{ '/search/' | relative_url }}" method="get" role="search">
+    <label class="visually-hidden" for="sidebar-q">Search this site</label>
+    <input type="search" id="sidebar-q" name="q" placeholder="search this site">
+  </form>
+
+  <section>
+    <h3>Pages</h3>
+    <ul>
+      <li><a href="{{ '/about/' | relative_url }}">About Me, {{ site.author }}</a></li>
+      <li><a href="{{ '/archive/' | relative_url }}">All posts</a></li>
+    </ul>
+  </section>
+
+  {%- if site.posts.size > 0 -%}
+  <section>
+    <h3>Recent Posts</h3>
+    <ul>
+      {%- for post in site.posts limit: 5 -%}
+      <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </section>
+
+  <section>
+    <h3>Archives</h3>
+    <ul>
+      {%- assign months = site.posts | group_by_exp: "p", "p.date | date: '%B %Y'" -%}
+      {%- for m in months -%}
+      {%- assign first = m.items | first -%}
+      <li><a href="{{ '/archive/' | relative_url }}#{{ first.date | date: '%Y-%m' }}">{{ m.name }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endif -%}
+</aside>

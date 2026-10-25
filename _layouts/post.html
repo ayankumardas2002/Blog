@@ -1,33 +1,28 @@
 ---
 layout: default
 ---
-{%- assign total = site.posts | size -%}
-{%- for p in site.posts -%}
-  {%- if p.url == page.url -%}
-    {%- assign no = total | minus: forloop.index0 -%}
-  {%- endif -%}
-{%- endfor -%}
-{%- assign older_no = no | minus: 1 -%}
 <article class="post">
-  <div class="post-bar"><a class="linkish" href="{{ '/' | relative_url }}">← All posts</a></div>
   <header class="post-head">
-    <span class="chip live">No. {{ no }}</span>
     <h1>{{ page.title }}</h1>
-    {% include post-meta.html post=page older=page.previous older_no=older_no %}
+    {% include post-meta.html post=page %}
   </header>
+  {%- if page.image -%}
+  <img class="cover-img" src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">
+  {%- endif -%}
   <div class="prose">
     {{ content }}
   </div>
   {%- if page.previous or page.next -%}
   <nav class="pager">
     {%- if page.previous -%}
-      <a href="{{ page.previous.url | relative_url }}"><span class="meta">← No. {{ no | minus: 1 }}</span><span>{{ page.previous.title }}</span></a>
+      <a href="{{ page.previous.url | relative_url }}">« {{ page.previous.title }}</a>
     {%- endif -%}
     {%- if page.next -%}
-      <a class="next" href="{{ page.next.url | relative_url }}"><span class="meta">No. {{ no | plus: 1 }} →</span><span>{{ page.next.title }}</span></a>
+      <a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} »</a>
     {%- endif -%}
   </nav>
   {%- endif -%}
+  <div id="comments">
     {% include comments.html %}
+  </div>
 </article>
-  
