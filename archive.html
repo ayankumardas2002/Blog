@@ -1,0 +1,27 @@
+---
+layout: default
+title: All posts
+permalink: /archive/
+---
+{%- assign total = site.posts | size -%}
+<article class="post">
+  <header class="post-head">
+    <h1>All posts</h1>
+    <div class="meta"><span>{{ total }} {% if total == 1 %}post{% else %}posts{% endif %} so far</span></div>
+  </header>
+  {%- if total == 0 -%}
+  <p>Nothing here yet. The first post is on its way.</p>
+  {%- endif -%}
+  {%- assign months = site.posts | group_by_exp: "p", "p.date | date: '%B %Y'" -%}
+  {%- for m in months -%}
+  {%- assign first = m.items | first -%}
+  <section class="month" id="{{ first.date | date: '%Y-%m' }}">
+    <h2>{{ m.name }}</h2>
+    <ul>
+      {%- for post in m.items -%}
+      <li><span class="day">{{ post.date | date: "%b %-d" }}</span> <a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </section>
+  {%- endfor -%}
+</article>

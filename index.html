@@ -1,26 +1,31 @@
 ---
 layout: default
 ---
-{%- assign total = site.posts | size -%}
-{%- if total == 0 -%}
+{%- comment -%} The newest posts in full, like a classic blog. Older ones are in the Archives. {%- endcomment -%}
+{%- assign shown = 5 -%}
+{%- if site.posts.size == 0 -%}
 <div class="empty">
   <h2>No posts yet</h2>
   <p>The first post hasn't gone out yet. Check back soon.</p>
 </div>
-{%- else -%}
-<div class="entries">
-  {%- for post in site.posts -%}
-    {%- assign no = total | minus: forloop.index0 -%}
-    {%- assign older = site.posts[forloop.index] -%}
-    {%- assign older_no = no | minus: 1 -%}
-    <article class="entry">
-      <div class="no"><small>No.</small>{{ no }}</div>
-      <div class="entry-body">
-        {% include post-meta.html post=post older=older older_no=older_no %}
-        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        <p class="excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 190 }}</p>
-      </div>
-    </article>
-  {%- endfor -%}
-</div>
+{%- endif -%}
+{%- for post in site.posts limit: shown -%}
+<article class="post">
+  <header class="post-head">
+    <h1><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h1>
+    {% include post-meta.html post=post %}
+  </header>
+  {%- if post.image -%}
+  <img class="cover-img" src="{{ post.image | relative_url }}" alt="{{ post.image_alt | default: post.title | escape }}">
+  {%- endif -%}
+  <div class="prose">
+    {{ post.content }}
+  </div>
+  {%- if site.cusdis_app_id and site.cusdis_app_id != "" -%}
+  <p class="post-foot"><a href="{{ post.url | relative_url }}#comments">Leave a comment</a></p>
+  {%- endif -%}
+</article>
+{%- endfor -%}
+{%- if site.posts.size > shown -%}
+<p class="older"><a href="{{ '/archive/' | relative_url }}">« Older posts</a></p>
 {%- endif -%}

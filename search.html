@@ -1,0 +1,45 @@
+---
+layout: default
+title: Search
+permalink: /search/
+---
+<article class="post">
+  <header class="post-head">
+    <h1>Search</h1>
+  </header>
+  <form class="search big" action="{{ '/search/' | relative_url }}" method="get" role="search">
+    <label class="visually-hidden" for="q">Search this site</label>
+    <input type="search" id="q" name="q" placeholder="Type a word and press Enter">
+  </form>
+  <p class="meta" id="search-status"></p>
+  <ul class="results" id="results"></ul>
+</article>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var q = (new URLSearchParams(location.search).get("q") || "").trim();
+    var box = document.getElementById("q"), status = document.getElementById("search-status"), list = document.getElementById("results");
+    box.value = q;
+    var side = document.getElementById("sidebar-q"); if (side) side.value = q;
+    if (!q) { status.textContent = "Type a word to find posts that mention it."; return; }
+    status.textContent = "Searching…";
+    fetch("{{ '/search.json' | relative_url }}").then(function (r) { return r.json(); }).then(function (posts) {
+      var words = q.toLowerCase().split(/\s+/);
+      var hits = posts.filter(function (p) {
+        var hay = (p.title + " " + p.text).toLowerCase();
+        return words.every(function (w) { return hay.indexOf(w) !== -1; });
+      });
+      status.textContent = hits.length ? hits.length + (hits.length === 1 ? " post" : " posts") + " found for “" + q + "”" : "No posts found for “" + q + "”. Try another word.";
+      hits.forEach(function (p) {
+        var li = document.createElement("li");
+        var a = document.createElement("a"); a.href = p.url; a.textContent = p.title;
+        var d = document.createElement("span"); d.className = "day"; d.textContent = p.date;
+        var i = p.text.toLowerCase().indexOf(words[0]);
+        var s = document.createElement("p");
+        var end = i + 140;
+        s.textContent = (i > 60 ? "…" : "") + p.text.slice(Math.max(0, i - 60), end) + (end < p.text.length ? "…" : "");
+        li.appendChild(a); li.appendChild(d); li.appendChild(s);
+        list.appendChild(li);
+      });
+    }).catch(function () { status.textContent = "Search isn't available right now. Try again later."; });
+  });
+</script>

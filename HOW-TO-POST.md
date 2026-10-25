@@ -65,6 +65,28 @@ The `date:` line decides when the post appears.
 
 To publish a draft, move it to `_posts`, give the file name a date at the front and add a `date:` line.
 
+### Mood, place and a cover photo (all optional)
+
+Add any of these lines to the header of a post, between the `---` lines:
+
+```
+---
+title: "A quiet Sunday by the river"
+date: 2026-10-26 18:00
+mood: calm
+place: Kolkata
+image: /assets/river.jpg
+---
+```
+
+- `mood:` shows "Feeling calm" on the post.
+- `place:` shows "In Kolkata".
+- `image:` shows a cover photo at the top of the post and on the home page when it's the latest post. Upload the photo to the `assets` folder first. Start the path with `/assets/`.
+
+### Your About page
+
+Edit `about.md` to write about yourself. It's linked from the menu at the top.
+
 ### Formatting
 
 | You type | You get |
