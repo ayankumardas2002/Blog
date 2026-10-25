@@ -1,0 +1,37 @@
+# ------------------------------------------------------------
+#  Blog settings. Change these to make the blog yours.
+# ------------------------------------------------------------
+title: The Occasional
+tagline: Posts that arrive when they're ready, not on a schedule.
+description: A blog that publishes when there's something worth saying.
+author: Your Name
+
+# Your time zone. Scheduled posts go live using this clock.
+# Examples: Asia/Kolkata, Europe/London, America/New_York, UTC
+# Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: UTC
+
+# ------------------------------------------------------------
+#  You normally don't need to change anything below this line.
+# ------------------------------------------------------------
+
+# Posts dated in the future are NOT published until their date arrives.
+# The scheduled GitHub Action rebuilds the site every hour to pick them up.
+future: false
+
+permalink: /:year/:month/:day/:title/
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - HOW-TO-POST.md
+  - LICENSE

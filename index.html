@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{%- assign total = site.posts | size -%}
+{%- if total == 0 -%}
+<div class="empty">
+  <h2>No posts yet</h2>
+  <p>The first post hasn't gone out yet. Check back soon.</p>
+</div>
+{%- else -%}
+<div class="entries">
+  {%- for post in site.posts -%}
+    {%- assign no = total | minus: forloop.index0 -%}
+    {%- assign older = site.posts[forloop.index] -%}
+    {%- assign older_no = no | minus: 1 -%}
+    <article class="entry">
+      <div class="no"><small>No.</small>{{ no }}</div>
+      <div class="entry-body">
+        {% include post-meta.html post=post older=older older_no=older_no %}
+        <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+        <p class="excerpt">{{ post.excerpt | strip_html | strip_newlines | truncate: 190 }}</p>
+      </div>
+    </article>
+  {%- endfor -%}
+</div>
+{%- endif -%}
