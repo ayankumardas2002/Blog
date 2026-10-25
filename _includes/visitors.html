@@ -1,0 +1,28 @@
+{%- comment -%}
+  Visitor counter, powered by GoatCounter (https://www.goatcounter.com).
+  Counts every visit, then shows the total in the footer and the
+  views of each post next to its date.
+  Turns on once you set goatcounter_code in _config.yml.
+{%- endcomment -%}
+{%- if site.goatcounter_code and site.goatcounter_code != "" -%}
+<script data-goatcounter="https://{{ site.goatcounter_code }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script>
+  (function () {
+    var base = "https://{{ site.goatcounter_code }}.goatcounter.com/counter/";
+    function show(path, label, where, prefix) {
+      if (!where) return;
+      fetch(base + encodeURIComponent(path) + ".json")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.count) return;
+          var s = document.createElement("span");
+          s.textContent = (prefix || "") + d.count + " " + label;
+          where.appendChild(s);
+        })
+        .catch(function () {});
+    }
+    show("TOTAL", "visits", document.querySelector("footer"), " · ");
+    show(location.pathname, "views", document.querySelector(".post-head .meta"));
+  })();
+</script>
+{%- endif -%}

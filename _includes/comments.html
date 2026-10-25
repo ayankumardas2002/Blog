@@ -1,0 +1,25 @@
+{%- comment -%}
+  Comments on each post, powered by Cusdis (https://cusdis.com).
+  Readers type a name and a comment; no account needed.
+  Turns on once you set cusdis_app_id in _config.yml.
+{%- endcomment -%}
+{%- if site.cusdis_app_id and site.cusdis_app_id != "" -%}
+<section class="comments">
+  <h2>Comments</h2>
+  <p class="comments-note">Leave a thought. Comments appear after I approve them.</p>
+  <div id="cusdis_thread"
+    data-host="https://cusdis.com"
+    data-app-id="{{ site.cusdis_app_id }}"
+    data-page-id="{{ page.id }}"
+    data-page-url="{{ page.url | absolute_url }}"
+    data-page-title="{{ page.title | escape }}"
+    data-theme="auto"></div>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+</section>
+<style>
+  .comments { display: flex; flex-direction: column; gap: .5rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+  .comments h2 { font: 400 1.6rem/1.2 var(--display); margin: 0; color: var(--heading); }
+  .comments-note { margin: 0 0 .5rem; color: var(--muted); font-size: .95rem; }
+  #cusdis_thread iframe { width: 100%; border: 0; color-scheme: normal; }
+</style>
+{%- endif -%}
