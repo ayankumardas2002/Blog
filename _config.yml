@@ -1,15 +1,15 @@
 # ------------------------------------------------------------
 #  Blog settings. Change these to make the blog yours.
 # ------------------------------------------------------------
-title: The Occasional
-tagline: Posts that arrive when they're ready, not on a schedule.
+title: Ordinary Days
+tagline: Bits of my life and the thoughts in between.
 description: A blog that publishes when there's something worth saying.
-author: Your Name
+author: Ayan
 
 # Your time zone. Scheduled posts go live using this clock.
 # Examples: Asia/Kolkata, Europe/London, America/New_York, UTC
 # Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone: UTC
+timezone: Asia/Kolkata
 
 # ------------------------------------------------------------
 #  You normally don't need to change anything below this line.
