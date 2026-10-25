@@ -35,3 +35,6 @@ exclude:
   - README.md
   - HOW-TO-POST.md
   - LICENSE
+  # Comments and visitor counter. Paste your codes between the quotes.
+cusdis_app_id: ""
+goatcounter_code: ""
