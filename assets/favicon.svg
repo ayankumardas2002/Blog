@@ -1,10 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#74A08D"/>
-      <stop offset="1" stop-color="#4F7D6A"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="12" fill="url(#g)"/>
-  <text x="32" y="45" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="34" font-weight="bold" fill="#FFFFFF">OD</text>
+  <rect width="64" height="64" rx="12" fill="#0F5E5A"/>
+  <circle cx="50" cy="12" r="16" fill="#F4B63F"/>
+  <circle cx="10" cy="62" r="12" fill="#E2553D"/>
+  <text x="30" y="44" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">OD</text>
 </svg>
